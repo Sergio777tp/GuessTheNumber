@@ -1,18 +1,24 @@
 
-import art2
-import random
-
-
 attempts = 0
 number = random.randint(1, 100)
 game = True
 
 def play_again():
     global game
-    play_again_answer = input("Would you like to play again, type 'yes' or 'no'?")
-    if play_again_answer == "yes":
-        game = True
-           
+    valid_response = False
+    while not valid_response:
+        play_again_answer = input("Would you like to play again, type 'yes' or 'no'?")
+        if play_again_answer == "yes":
+            game = True
+            valid_response = True
+        elif play_again_answer == "no":
+            game = False
+            valid_response = True
+        else:
+            print("Please enter a valid response either 'yes' or 'no'.")
+            valid_response = False
+
+
 def choose_difficulty():
     difficulty = input("Choose a difficulty. Type 'easy' or 'hard': ")
     if difficulty == "easy":
@@ -27,7 +33,11 @@ def main_game():
     if player_guess == number:
         print(f"You got it! The answer was {number}.")
         game = False
-        
+    elif player_guess < number:
+        print("Too low.\nGuess again.\n")
+    elif player_guess > number:
+        print("Too high.\nGuess again.\n")
+
 while game:
     print(art2.logo)
     print("Welcome to the Number Guessing Game!\n")
